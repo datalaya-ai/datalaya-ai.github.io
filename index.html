@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Datalaya.ai — Data & AI Consulting</title>
+<meta name="description" content="Datalaya.ai — AI-first Data & AI engineering consulting. Generative AI, MLOps, Lakehouse, Cloud Architecture. Based in Finland, serving globally." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0c0f14;
+    --ink-muted: #4a4f5c;
+    --ink-faint: #9095a8;
+    --surface: #f7f6f2;
+    --card: #ffffff;
+    --accent: #1a6b4a;
+    --accent-hover: #145a3d;
+    --accent-light: #e2f4ec;
+    --accent2: #c85a1e;
+    --accent2-light: #faeee5;
+    --border: rgba(12,15,20,0.1);
+    --border-strong: rgba(12,15,20,0.18);
+    --mono: 'DM Mono', monospace;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--surface); color: var(--ink); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  /* ───── NAV ───── */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 4rem;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 32px; height: 32px; background: var(--accent); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo-mark svg { width: 18px; height: 18px; fill: #fff; }
+  .nav-brand-name { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--ink); letter-spacing: 0.02em; }
+  .nav-brand-name span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: #fff; border: none; border-radius: 4px;
+    padding: 0.5rem 1.2rem; font-family: var(--sans); font-size: 13px; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent-hover); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 22px; height: 1.5px; background: var(--ink); display: block; transition: 0.3s; }
+
+  /* ───── HERO ───── */
+  .hero {
+    min-height: 96vh; display: flex; align-items: center;
+    padding: 6rem 4rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero-radial {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 65% at 85% 45%, rgba(26,107,74,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 45% at 5% 85%, rgba(200,90,30,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 20% 30% at 50% 10%, rgba(26,107,74,0.04) 0%, transparent 50%);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr 420px; gap: 5rem; align-items: center; max-width: 1100px; position: relative; z-index: 1; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 5rem); line-height: 1.0; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 16px; color: var(--ink-muted); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none; border-radius: 4px;
+    padding: 0.75rem 1.6rem; font-family: var(--sans); font-size: 14px; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-ghost {
+    background: transparent; color: var(--ink); border: 0.5px solid var(--border-strong);
+    border-radius: 4px; padding: 0.75rem 1.6rem; font-family: var(--sans); font-size: 14px;
+    cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(12,15,20,0.05); }
+
+  /* Hero card */
+  .hero-card {
+    background: var(--card); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .hero-card-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-faint); text-transform: uppercase; }
+  .hero-card-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-top: 4px; }
+  .hero-card-divider { height: 0.5px; background: var(--border); }
+  .metric-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .metric { }
+  .metric-num { font-family: var(--serif); font-size: 2rem; color: var(--ink); }
+  .metric-label { font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech-badge {
+    background: var(--accent-light); color: var(--accent);
+    border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em;
+  }
+  .tech-badge.warm { background: var(--accent2-light); color: var(--accent2); }
+
+  /* ───── STATS BAR ───── */
+  .stats-bar { border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); background: var(--card); }
+  .stats-bar-inner { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1100px; margin: 0 auto; }
+  .stat-item { padding: 2rem 2.5rem; border-right: 0.5px solid var(--border); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: var(--serif); font-size: 2.6rem; color: var(--ink); }
+  .stat-sub { font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
+
+  /* ───── SECTIONS ───── */
+  section { padding: 6rem 4rem; }
+  .section-wrap { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent2); text-transform: uppercase; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+  .section-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--accent2); }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); color: var(--ink); margin-bottom: 0.75rem; line-height: 1.1; }
+  .section-desc { font-size: 15px; color: var(--ink-muted); max-width: 560px; line-height: 1.75; margin-bottom: 3.5rem; }
+
+  /* ───── SERVICES ───── */
+  #services { background: var(--card); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); }
+  .service-card { background: var(--card); padding: 2.25rem 2rem; transition: background 0.2s; }
+  .service-card:hover { background: var(--surface); }
+  .svc-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .svc-title { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; }
+  .svc-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.75; }
+
+  /* ───── HOW WE WORK ───── */
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .process-step { }
+  .step-num { font-family: var(--serif); font-size: 3rem; color: rgba(26,107,74,0.15); line-height: 1; margin-bottom: 1rem; }
+  .step-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; }
+  .step-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
+
+  /* ───── ABOUT / FOUNDER ───── */
+  #about { background: var(--ink); color: #fff; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .about-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+  .about-label::before { content: ''; display: block; width: 16px; height: 1px; background: rgba(255,255,255,0.3); }
+  .about-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); color: #fff; margin-bottom: 1.5rem; line-height: 1.1; }
+  .about-body { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.85; }
+  .about-body p + p { margin-top: 1.2rem; }
+  .founder-card { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 2rem; }
+  .founder-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .founder-avatar {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 14px; color: #fff; font-weight: 500;
+  }
+  .founder-name { font-size: 15px; font-weight: 500; color: #fff; }
+  .founder-title { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .founder-divider { height: 0.5px; background: rgba(255,255,255,0.12); margin-bottom: 1.5rem; }
+  .founder-row { display: flex; flex-direction: column; gap: 1rem; }
+  .founder-item-key { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 2px; }
+  .founder-item-val { font-size: 13px; color: rgba(255,255,255,0.75); }
+  .founder-item-val a { color: #6ee7b7; text-decoration: none; }
+  .founder-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem; }
+  .founder-tag { background: rgba(26,107,74,0.25); color: #6ee7b7; border-radius: 3px; padding: 3px 8px; font-family: var(--mono); font-size: 10px; }
+
+  /* ───── STACK ───── */
+  #stack { }
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .stack-group { }
+  .stack-group-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .stack-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--card); border: 0.5px solid var(--border); padding: 5px 12px; border-radius: 4px; font-family: var(--mono); font-size: 12px; color: var(--ink-muted); }
+
+  /* ───── CONTACT ───── */
+  #contact { background: var(--surface); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 12px; color: var(--ink-muted); letter-spacing: 0.03em; }
+  input, textarea, select {
+    background: var(--card); border: 0.5px solid var(--border-strong);
+    border-radius: 4px; padding: 0.65rem 0.9rem; font-family: var(--sans); font-size: 14px;
+    color: var(--ink); outline: none; width: 100%; transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 120px; }
+  .contact-meta { display: flex; flex-direction: column; gap: 1.5rem; padding-top: 0.5rem; }
+  .contact-meta-item { }
+  .cmeta-key { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ink-faint); text-transform: uppercase; margin-bottom: 4px; }
+  .cmeta-val { font-size: 14px; color: var(--ink); }
+  .cmeta-val a { color: var(--accent); text-decoration: none; }
+  .location-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); padding: 4px 10px; border-radius: 40px; font-size: 12px; margin-top: 0.75rem; }
+
+  /* ───── FOOTER ───── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.45);
+    padding: 1.75rem 4rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-brand { font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,0.75); }
+  .footer-brand span { color: #6ee7b7; }
+  .footer-copy { font-size: 12px; }
+
+  /* ───── MOBILE ───── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero, section { padding: 4rem 1.5rem; }
+    .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-card { display: none; }
+    .stats-bar-inner { grid-template-columns: 1fr 1fr; }
+    .stat-item:nth-child(2) { border-right: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .stack-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+    .metric-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2zm-1 13l-3-3 1.4-1.4 1.6 1.6 4.6-4.6L17 9l-6 6z"/>
+      </svg>
+    </div>
+    <span class="nav-brand-name">Datalaya<span>.ai</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#stack">Tech Stack</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="nav-cta">Start a project →</a>
+  </div>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-radial"></div>
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Data &amp; AI Consulting · Finland → Global</p>
+      <h1>Data that<br>flows in<br><em>rhythm.</em></h1>
+      <p class="hero-sub">We build AI-powered systems and data platforms that turn raw data into real business advantage — from LLM integrations and MLOps to lakehouse engineering. Based in Finland, delivering globally.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Start a project →</a>
+        <a href="#services" class="btn-ghost">Our services</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div>
+        <div class="hero-card-label">Our focus areas</div>
+        <div class="hero-card-title">Generative AI · MLOps · Data Lakehouse · Cloud Architecture</div>
+      </div>
+      <div class="hero-card-divider"></div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-num">10+</div>
+          <div class="metric-label">Years in data engineering</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">45%</div>
+          <div class="metric-label">Avg. latency reduction</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">20%</div>
+          <div class="metric-label">Cloud cost savings</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">6+</div>
+          <div class="metric-label">Enterprise clients served</div>
+        </div>
+      </div>
+      <div class="hero-card-divider"></div>
+      <div>
+        <div class="hero-card-label">Core stack</div>
+        <div class="tech-stack" style="margin-top: 0.6rem;">
+          <span class="tech-badge">Databricks</span>
+          <span class="tech-badge">dbt</span>
+          <span class="tech-badge">Apache Spark</span>
+          <span class="tech-badge warm">AWS</span>
+          <span class="tech-badge warm">Azure</span>
+          <span class="tech-badge">Terraform</span>
+          <span class="tech-badge">Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-sub">Years of engineering excellence</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">45%</div>
+      <div class="stat-sub">Data latency reduction delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">20%</div>
+      <div class="stat-sub">Infrastructure cost optimized</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">EU+</div>
+      <div class="stat-sub">Clients across Finland, India &amp; Europe</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-wrap">
+    <p class="section-label">What we do</p>
+    <h2 class="section-title">Our services</h2>
+    <p class="section-desc">From AI strategy and MLOps to data lakehouse builds and cloud migrations — we design, engineer, and operate the intelligent data systems that modern businesses compete on.</p>
+    <div class="services-grid">
+      <div class="service-card" style="border-top: 2px solid var(--accent);">
+        <div class="svc-num" style="color: var(--accent2);">01 / AI FIRST</div>
+        <div class="svc-title">Generative AI &amp; LLM Integration</div>
+        <div class="svc-desc">Build production-ready AI applications on your data — RAG pipelines, LLM-powered APIs, prompt engineering, and AI agent workflows. We connect your enterprise data to the latest foundation models securely and at scale.</div>
+      </div>
+      <div class="service-card" style="border-top: 2px solid var(--accent);">
+        <div class="svc-num" style="color: var(--accent2);">02 / AI/ML</div>
+        <div class="svc-title">MLOps &amp; AI Platform Engineering</div>
+        <div class="svc-desc">Operationalize your AI/ML workloads end-to-end — feature stores, model training pipelines, serving infrastructure, drift monitoring, and retraining automation. Reliable AI, not just experiments.</div>
+      </div>
+      <div class="service-card" style="border-top: 2px solid var(--accent);">
+        <div class="svc-num" style="color: var(--accent2);">03 / AI STRATEGY</div>
+        <div class="svc-title">AI Readiness &amp; Data Strategy</div>
+        <div class="svc-desc">Not sure where to start with AI? We assess your data maturity, identify the highest-value AI use cases, and build a clear roadmap — from raw data to intelligent decision-making.</div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">04 / LAKEHOUSE</div>
+        <div class="svc-title">Data Lakehouse Engineering</div>
+        <div class="svc-desc">Design and build production-grade Databricks platforms on AWS or Azure. Medallion architecture, semantic model refresh, event-driven pipelines, and full CI/CD from day one.</div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">05 / ETL</div>
+        <div class="svc-title">ETL &amp; Pipeline Development</div>
+        <div class="svc-desc">Reliable, observable data pipelines using PySpark, dbt, Azure Data Factory, and more. We handle both real-time streaming and batch workloads at enterprise scale.</div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">06 / CLOUD</div>
+        <div class="svc-title">Cloud Data Architecture</div>
+        <div class="svc-desc">Multi-cloud expertise across AWS (S3, Glue, Redshift) and Azure (Synapse, ADF, SQL DW). Migrations, lift-and-shift, and greenfield builds with infrastructure-as-code.</div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">07 / QUALITY</div>
+        <div class="svc-title">Data Quality &amp; Governance</div>
+        <div class="svc-desc">Monitoring frameworks, SLA enforcement, unit testing, and schema governance. SAP integrations (S/4HANA, CC) and dbt transformations for high-integrity data estates.</div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">08 / DEVOPS</div>
+        <div class="svc-title">DataOps &amp; CI/CD</div>
+        <div class="svc-desc">GitHub Actions, Terraform, dbx, and semantic-release pipelines. Python packaging, secret management, and secure infrastructure provisioning for repeatable deployments.</div>
+      </div>
+      <div class="service-card" style="background: var(--ink); border-top: 2px solid var(--accent2);">
+        <div class="svc-num" style="color: rgba(255,255,255,0.4);">09 / CONSULTING</div>
+        <div class="svc-title" style="color: #fff;">Expert Consulting &amp; Advisory</div>
+        <div class="svc-desc" style="color: rgba(255,255,255,0.6);">Fractional data leadership, architecture reviews, team training, and hands-on mentoring. Whether you need a strategic sparring partner or embedded expertise — we're in your corner from day one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section style="background: var(--surface);">
+  <div class="section-wrap">
+    <p class="section-label">How we work</p>
+    <h2 class="section-title">Our approach</h2>
+    <p class="section-desc">We believe great AI and data engineering is equal parts architecture discipline, code quality, and business context. Here's how a typical engagement unfolds.</p>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discover &amp; scope</div>
+        <div class="step-desc">We audit your current stack, understand your business goals, and map the data flows that matter most.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Design &amp; architect</div>
+        <div class="step-desc">We propose a solution architecture — choosing the right tools, cloud services, and data models for your specific context.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Build &amp; test</div>
+        <div class="step-desc">Iterative delivery with CI/CD from the start. Every pipeline is tested, monitored, and documented before it goes to production.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Scale &amp; hand over</div>
+        <div class="step-desc">We scale your platform, train your team, and provide clear runbooks — so you own and operate it confidently.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / FOUNDER -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div>
+        <p class="about-label">About Datalaya</p>
+        <h2 class="about-title">Built by engineers, for builders</h2>
+        <div class="about-body">
+          <p>Datalaya.ai was founded with a simple conviction: that great data engineering — done with craft, honesty, and deep technical rigour — can transform any organisation.</p>
+          <p>The name combines <em>Data</em> with <em>laya</em> (लय) — a Sanskrit word meaning rhythm, flow, and harmony. That's what we bring to your data: not just pipelines, but systems that breathe, scale, and deliver consistently.</p>
+          <p>We are headquartered in Turku, Finland, with the global mindset and cross-industry experience to serve clients across Europe and beyond. We are growing — and actively hiring engineers who share our standards.</p>
+        </div>
+      </div>
+      <div>
+        <div class="founder-card">
+          <div class="founder-header">
+            <div class="founder-avatar">VR</div>
+            <div>
+              <div class="founder-name">Vddavaina Rakesh Suresh Goud</div>
+              <div class="founder-title">Founder &amp; Lead Data &amp; AI Engineer</div>
+            </div>
+          </div>
+          <div class="founder-divider"></div>
+          <div class="founder-row">
+            <div class="founder-item">
+              <div class="founder-item-key">Current role</div>
+              <div class="founder-item-val">Data Engineer, Posti Group Oyj — Helsinki</div>
+            </div>
+            <div class="founder-item">
+              <div class="founder-item-key">Background</div>
+              <div class="founder-item-val">10+ years across Infosys, CitiusTech, Mindtree, Atos — India &amp; Finland</div>
+            </div>
+            <div class="founder-item">
+              <div class="founder-item-key">Education</div>
+              <div class="founder-item-val">B.C.A., Information &amp; Communication Technology — Mumbai University</div>
+            </div>
+            <div class="founder-item">
+              <div class="founder-item-key">LinkedIn</div>
+              <div class="founder-item-val"><a href="https://linkedin.com/in/rakeshgoud638233b1" target="_blank">linkedin.com/in/rakeshgoud638233b1</a></div>
+            </div>
+          </div>
+          <div class="founder-tags">
+            <span class="founder-tag">Databricks</span>
+            <span class="founder-tag">dbt</span>
+            <span class="founder-tag">AWS</span>
+            <span class="founder-tag">Azure</span>
+            <span class="founder-tag">Spark</span>
+            <span class="founder-tag">Terraform</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="section-wrap">
+    <p class="section-label">Technology</p>
+    <h2 class="section-title">Our tech stack</h2>
+    <p class="section-desc">We work with the tools that the world's leading data teams rely on — and we know them deeply, not just superficially.</p>
+    <div class="stack-grid">
+      <div class="stack-group">
+        <div class="stack-group-title">Data platforms</div>
+        <div class="stack-chips">
+          <span class="chip">Databricks</span>
+          <span class="chip">Apache Spark</span>
+          <span class="chip">dbt</span>
+          <span class="chip">Azure Synapse</span>
+          <span class="chip">Azure Data Factory</span>
+          <span class="chip">AWS Glue</span>
+          <span class="chip">AWS S3</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-group-title">Languages &amp; query</div>
+        <div class="stack-chips">
+          <span class="chip">Python</span>
+          <span class="chip">PySpark</span>
+          <span class="chip">Spark-SQL</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Jinja</span>
+          <span class="chip">Bash</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-group-title">DevOps &amp; infrastructure</div>
+        <div class="stack-chips">
+          <span class="chip">Terraform</span>
+          <span class="chip">GitHub Actions</span>
+          <span class="chip">dbx</span>
+          <span class="chip">Poetry</span>
+          <span class="chip">Pytest</span>
+          <span class="chip">VSTS</span>
+          <span class="chip">Docker</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-group-title">Cloud &amp; databases</div>
+        <div class="stack-chips">
+          <span class="chip">AWS</span>
+          <span class="chip">Azure</span>
+          <span class="chip">MS SQL Server</span>
+          <span class="chip">Azure SQL DW</span>
+          <span class="chip">DB2</span>
+          <span class="chip">SAP S/4HANA</span>
+          <span class="chip">SAP CC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Start a conversation</h2>
+    <p class="section-desc">Whether you need a data platform built from scratch, a team to augment, or just an expert opinion — we'd love to hear from you.</p>
+    <div class="contact-inner">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" placeholder="Matti" />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" placeholder="Virtanen" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="matti@company.fi" />
+        </div>
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" placeholder="Your company name" />
+        </div>
+        <div class="form-group">
+          <label for="service">Area of interest</label>
+          <select id="service">
+            <option value="">Select a service...</option>
+            <option>Data Lakehouse Engineering</option>
+            <option>ETL &amp; Pipeline Development</option>
+            <option>Cloud Data Architecture</option>
+            <option>AI &amp; MLOps Enablement</option>
+            <option>Data Quality &amp; Governance</option>
+            <option>DataOps &amp; CI/CD</option>
+            <option>Other / Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" placeholder="Brief description of what you're trying to build or solve..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: fit-content;">Send message →</button>
+        <div id="form-success" style="display:none; color: var(--accent); font-size: 13px; margin-top: 0.5rem;">✓ Message sent! We'll be in touch within 24 hours.</div>
+      </form>
+      <div class="contact-meta">
+        <div class="contact-meta-item">
+          <div class="cmeta-key">Email</div>
+          <div class="cmeta-val"><a href="mailto:rakagoud89@gmail.com">rakagoud89@gmail.com</a></div>
+        </div>
+        <div class="contact-meta-item">
+          <div class="cmeta-key">Phone</div>
+          <div class="cmeta-val">+358 4 495 55382</div>
+        </div>
+        <div class="contact-meta-item">
+          <div class="cmeta-key">LinkedIn</div>
+          <div class="cmeta-val"><a href="https://linkedin.com/in/rakeshgoud638233b1" target="_blank">linkedin.com/in/rakeshgoud638233b1</a></div>
+        </div>
+        <div class="contact-meta-item">
+          <div class="cmeta-key">Headquarters</div>
+          <div class="cmeta-val">
+            Turku, Finland
+            <div><span class="location-badge">🇫🇮 Finland · Remote-first · Global delivery</span></div>
+          </div>
+        </div>
+        <div class="contact-meta-item">
+          <div class="cmeta-key">Response time</div>
+          <div class="cmeta-val">Within 24 hours on business days</div>
+        </div>
+        <div class="contact-meta-item">
+          <div class="cmeta-key">We're hiring</div>
+          <div class="cmeta-val">Interested in joining Datalaya? Reach out with your CV and area of expertise.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Datalaya<span>.ai</span> — Data &amp; AI Consulting</div>
+  <div class="footer-copy">© 2025 Datalaya. Turku, Finland. All rights reserved.</div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Subtle fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.service-card, .process-step, .stat-item, .stack-group').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
