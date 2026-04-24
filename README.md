@@ -1,2 +1,2 @@
-# datalmaya-ai.github.io
+# datalaya-ai.github.io
 Datalaya.ai  - Data &amp; AI Consulting
